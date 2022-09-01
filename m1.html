@@ -81,11 +81,12 @@ margin-top: 0px; }
 
 // declare variables
 
-let codeVersion = 1.5; // code version
+let codeVersion = 1.6; // code version
 
 let fName; // file name
 let lm = 15; // left margin for menu items
-let sv0, sv1, sv2, sv3, sv4, sv5, sv6; // generic Slider Value 
+// let sv0, sv1, sv2, sv3, sv4, sv5, sv6; // generic Slider Value 
+let sv = [];
 let check7, check = []; // check box 7 and check box array
 let sliders = []; // sliders array
 let fgreeting, greeting = []; // first greeting and greeting array
@@ -213,14 +214,10 @@ function checkBox() {
 
 function draw() {
 	background('white');
-	sv0 = sliders[0].value();
-	sv1 = sliders[1].value();
-	sv2 = sliders[2].value();
-	sv3 = sliders[3].value();
-	sv4 = sliders[4].value();
-	sv5 = sliders[5].value();
-	sv6 = sliders[6].value();
-	
+for (let s = 0; s < 7; s++) {
+    sv[s] = (sliders[s].value());
+    print(sv[s]);
+}
 	checkBox();	
 	drawSomething();  
 }
