@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="us-ascii">
+	<title>m1.html - portable Menu</title>
+	<script src="../js/p5.min.js"></script>
+	<script language="javascript" src="../js/p5.svg.js"></script>
+<style>
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+
+  /* This centers the sketch horizontally. */
+  justify-content: center;
+
+  /* This centers the sketch vertically.  */
+  align-items: center;
+}
+
+#Menu {
+    font-family:Lucida Sans Unicode,Lucida Grande,sans-serif;
+    text-align: center;
+    width: 240px;
+    height: 55px;
+    position: absolute;
+    top: 10px;
+    left: 4px;
+    background-color: #eeeeee;
+    padding:0px 0px;
+    opacity: 0.9;
+    border:1px solid #cccccc;
+    border-radius: 10px;
+}
+
+#MenuBackground {
+    width: 239px;
+    height: 430px;
+    position: absolute;
+    top: 60px;
+    left: 2px;
+    outline-color: 'black';
+    outline-width: 2;
+    background-color: #00CED1;
+    padding:0px 0px;
+    opacity: 0.9;
+    border:1px solid #cccccc;
+    border-radius: 10px;
+}
+h5 {   
+color:'black';   
+font-family: Helvetica;   
+font-size:0.8em;   
+font-weight:300;   
+letter-spacing:.02em;   
+text-transform:none;   
+margin-top: 0px; }
+
+h4 {   
+color:'black';   
+font-family: Helvetica;   
+font-size:1.1em;   
+font-weight:300;   
+letter-spacing:.02em;   
+text-transform:none;   
+margin-top: 0px; }
+</style>
+</head>
+<body>
+<div id="Menu">
+<p><a href="http://ixelsart.com" target="_self"><span>Go back Home</span></a></p>
+<div id="MenuBackground"></div>
+</div>
+<script>
+ 
+
+// Start of Javascript Code
+// ************************
+
+// declare variables
+
+let codeVersion = 1.5; // code version
+
+let fName; // file name
+let lm = 15; // left margin for menu items
+let sv0, sv1, sv2, sv3, sv4, sv5, sv6; // generic Slider Value 
+let check7, check = []; // check box 7 and check box array
+let sliders = []; // sliders array
+let fgreeting, greeting = []; // first greeting and greeting array
+let cb7 = 0; // check box 7 value
+
+// this block now loads the slider names and values from a .css file
+function preload() {
+  // table is comma separated value "CSV"
+  // and has specifiying header for column labels
+  table = loadTable('menudata.csv', 'csv', 'header');
+}
+
+function setup() {
+	createCanvas(windowWidth, windowHeight, SVG); // Create SVG Canvas
+    	strokeCap(ROUND);
+    	strokeWeight(1);
+    	stroke(0);
+	background(255);
+	noFill();
+	angleMode(DEGREES);
+	rectMode(CENTER);
+
+   	// Set the text size
+    	textSize(100);
+
+	// Save SVG button
+	let saveButton = createButton("Save SVG");
+	saveButton.position(lm, 135);
+	saveButton.size(100,30);
+	saveButton.style('font-size', '12px');
+	saveButton.style('color', 'black');
+	saveButton.mousePressed(saveArt);
+	
+	// run the code again button
+	let rerunButton = createButton("Run Again");
+	rerunButton.position(130, 135);
+	rerunButton.size(100, 30);
+	rerunButton.style('font-size', '12px');
+	rerunButton.style('color', 'black');
+	rerunButton.mousePressed(reRun);
+
+	// file name input box
+	fName = createInput('');
+	fName.position(lm, 100);
+	fName.changed(saveArt2);
+
+	// submit button
+	button = createButton('submit');
+	button.position(fName.x + (fName.width + 5), 100);
+	button.mousePressed(saveArt3);
+
+	// echo of the filename entered into the iput box
+	fgreeting = createElement('h4', 'Filename to save');
+	fgreeting.position(lm, 80);
+	
+	// This block now creates several arrays to manage the sliders and check boxes.
+	menuItems = table.getArray();
+  	for (let i = 0; i < menuItems.length; i++) {
+    	sliders[i] = createSlider(menuItems[i][1], menuItems[i][2], menuItems[i][3], menuItems[i][4]);
+	sliders[i].size(215, 10);
+	sliders[i].position(20,i*40+200);
+	check[i] = createCheckbox('reset', false);
+	check[i].position(175,i*40+177);
+	check[i].style('font-family', 'sans-serif');
+	greeting[i] = createElement('h4', menuItems[i][0]);
+	greeting[i].position(20, i*40+179);
+	}
+ 	for (let i = 0; i < menuItems.length; i++) { 
+       		sliders[i].value(menuItems[i][3]);
+    	}  
+	check7 = createCheckbox('Add Color', false);
+	check7.position(75, 460);
+	check7.style('font-family', 'sans-serif');
+
+	// codeVersion 
+	codeVersion = createElement('h5', 'v'+codeVersion);
+	codeVersion.position(lm, 480);
+}
+  	
+// This function will save the canvas as an SVG with the file name that is tyed into the input box
+function saveArt() {
+	save(fName.value() + '.svg');
+}
+
+// This function allows the enter or tab key to trigger the saving of the currently typed file name
+function saveArt2() {
+	save(fName.value() + '.svg');
+}
+
+// This function is a third way to trigger the saving of the typed file name
+function saveArt3() {
+	save(fName.value() + '.svg');
+}
+
+// This function refreshes the html page re running the code.
+function reRun() {
+	window.location.reload();
+}
+
+// this section is for the p5js code that draws the design on the canvas
+
+// Function to draw something
+function drawSomething () {
+	rect(width/2, height/2 ,300,300);
+}
+
+// function if reset checked then load default value from array
+function checkBox() {	
+	for (let ck = 0; ck < 7; ck++) {
+	    if (check[ck].checked()) {
+	        sliders[ck].value(menuItems[ck][3]);
+	        check[ck].checked(false);
+	    }
+	}
+    	if (check7.checked()) {
+		cb7 = 1;
+    	}
+		else {
+		    cb7 = 0;
+    	} 
+}
+
+// Main draw block
+// ***************
+
+function draw() {
+	background('white');
+	sv0 = sliders[0].value();
+	sv1 = sliders[1].value();
+	sv2 = sliders[2].value();
+	sv3 = sliders[3].value();
+	sv4 = sliders[4].value();
+	sv5 = sliders[5].value();
+	sv6 = sliders[6].value();
+	
+	checkBox();	
+	drawSomething();  
+}
+// end of p5js code
+
+</script>
+</body>
+</html>
+
+
