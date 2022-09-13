@@ -13,14 +13,21 @@ body {
   align-items: center;
 }
 
+#buttonR {
+    font-family:Lucida Sans Unicode,Lucida Grande,sans-serif;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
 #Menu {
     font-family:Lucida Sans Unicode,Lucida Grande,sans-serif;
     text-align: center;
     width: 240px;
     height: 55px;
     position: absolute;
-    top: 10px;
-    left: 4px;
+    top: 30px;
+    left: 5px;
     background-color: #eeeeee;
     padding:0px 0px;
     opacity: 0.9;
@@ -33,7 +40,7 @@ body {
     height: 430px;
     position: absolute;
     top: 60px;
-    left: 2px;
+    left: 0px;
     outline-color: 'black';
     outline-width: 2;
     background-color: #00CED1;
