@@ -1,7 +1,7 @@
 function setup1() {
    	// Code Version number display 
 	codeVersion = createElement('h5', 'v'+codeVersion);
-	codeVersion.position(lm, 480+tm);
+	codeVersion.position(lm, 480+tm-(40*(7-nos)));
 
    	// Set the text size
     	textSize(100);
@@ -38,12 +38,12 @@ function setup1() {
 	
  	// check box 7 misc
 	check7 = createCheckbox('Draw', false);
-	check7.position(75, 460+tm);
+	check7.position(75, 460+tm-(40*(7-nos)));
 	check7.style('font-family', 'sans-serif');
 
 	// This block creates several arrays to manage the sliders and check boxes.
 	menuItems = table.getArray();
-  	for (let i = 0; i < menuItems.length; i++) {
+  	for (let i = 0; i < nos; i++) {
     	sliders[i] = createSlider(menuItems[i][1], menuItems[i][2], menuItems[i][3], menuItems[i][4]);
 	sliders[i].size(215, 10);
 	sliders[i].position(20,i*40+200+tm);
@@ -54,7 +54,7 @@ function setup1() {
 	greeting[i].position(20, i*40+179+tm);
 	}
  	// Set the default values for the sliders
- 	for (let i = 0; i < menuItems.length; i++) { 
+ 	for (let i = 0; i < nos; i++) { 
        		sliders[i].value(menuItems[i][3]);
     	}  
 }
@@ -72,7 +72,7 @@ function reRun() {
 
 // function if reset checked then load default value from array
 function checkBox1() {	
-	for (let ck = 0; ck < 7; ck++) {
+	for (let ck = 0; ck < nos; ck++) {
 	    if (check[ck].checked()) {
 	        sliders[ck].value(menuItems[ck][3]);
 	        check[ck].checked(false);
@@ -87,7 +87,7 @@ function checkBox1() {
 }
 
 function getSlides() {
-    for (let s = 0; s < 7; s++) {
+    for (let s = 0; s < nos; s++) {
     		sv[s] = (sliders[s].value());
 	}
 }

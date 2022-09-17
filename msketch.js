@@ -1,5 +1,5 @@
 // p5.js Javascript code
-let codeVersion = "2.0"; // code version
+let codeVersion = "2.1"; // code version
 
 let lm = 15; // left margin for menu items
 let tm = 20; // top margin offset
@@ -15,7 +15,9 @@ let menuHide;
 let saveButton;
 let rerunButton;
 let button1;
-let fgreeting;
+let fgreeting; // first greetin
+let nos = 0; //number of sliders
+let mbh; // menu background height
 
 // this block loads the slider names and values from a .csv file
 function preload() {
@@ -38,17 +40,16 @@ function setup() {
 	angleMode(DEGREES);
 	rectMode(CENTER);
 	
-//if (menuShow === true) {	
     setup1(); // run code from setup function
     
-//}
-	
-
-//*****************************************//
- 	// check box menuHide 
-	menuHide = createCheckbox('Hide menu', false);
+	// check box menuHide 
+	menuHide = createCheckbox('Hide menu', true);
 	menuHide.position(115, 5);
 	menuHide.style('font-family', 'sans-serif');
+
+
+//*****************************************//
+
 
 
 //*****************************************//
@@ -81,7 +82,7 @@ if (menuShow === true) {
     button1.hide();
     fgreeting.hide();
 
-    for (i=0; i < 7; i++) {
+    for (i=0; i < nos; i++) {
     sliders[i].hide();
     check[i].hide();
     greeting[i].hide();
@@ -91,8 +92,10 @@ if (menuShow === true) {
 
 if (menuShow === false) {
 checkBox1();
-getSlides(); 
+getSlides();
+mbh = "height:"+(430-(40*(7-nos)))+"px";
 document.getElementById("MenuBackground").style.display = "inline";
+document.getElementById("MenuBackground").setAttribute("style",mbh);
 document.getElementById("Menu").style.display = "inline";
     fName.show();
     check7.show();
@@ -102,7 +105,7 @@ document.getElementById("Menu").style.display = "inline";
     button1.show();
     fgreeting.show();
 
-    for (i=0; i < 7; i++) {
+    for (i=0; i < nos; i++) {
     sliders[i].show();
     check[i].show();
     greeting[i].show();
